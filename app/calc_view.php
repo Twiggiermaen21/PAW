@@ -8,11 +8,16 @@
 <body>
 
 <form action="<?php print(_APP_URL);?>/app/calc.php" method="post">
-	<label for="id_kwota">Podaj kwote: </label>
+	<label >Podaj kwote: </label>
 	<input id="id_kwota" type="text" name="kwota" value="<?php 
 
 	if(!empty($kwota)){print($kwota);} 
-	?>" /><br />
+	?>" 
+	
+	
+	/>
+	<label for="id_kwota">zl</label>
+	<br />
 
 	<label for="id_miesiecy">Podaj ile miesiecy: </label>
 	<input id="id_miesiecy" type="text" name="miesiecy" value="<?php
@@ -42,7 +47,7 @@ if (isset($messages)) {
 
 <?php if (isset($result)){ ?>
 <div style="margin: 20px; padding: 10px; border-radius: 5px; background-color: #ff0; width:300px;">
-<?php echo 'Wynik: '.$result; ?>
+<?php echo 'RATA: '.$result; ?>
 </div>
 <?php } ?>
 

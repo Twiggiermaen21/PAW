@@ -17,15 +17,13 @@ if ( $kwota == "") {
 	$messages [] = 'Nie podano kwoty';
 }
 if ( $miesiecy == "") {
-	$messages [] = 'Nie podano miesiecyu';
+	$messages [] = 'Nie podano ilosci miesiecy';
 }
 if ( $oprocentowanie == "") {
 	$messages [] = 'Nie podano oprocentowania';
 }
 
-	$miesiecy = intval($miesiecy);
-	$kwota = intval($kwota);
-	$oprocentowanie = intval($oprocentowanie);
+	
 
 if (empty( $messages )) {
 	if (! is_numeric( $kwota )) {
@@ -41,7 +39,9 @@ if (empty( $messages )) {
 
 
 if (empty ( $messages )) { 
-	
+	$miesiecy = intval($miesiecy);
+	$kwota = intval($kwota);
+	$oprocentowanie = intval($oprocentowanie);
 	
 	
 	//wykonanie operacji
