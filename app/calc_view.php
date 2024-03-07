@@ -3,23 +3,28 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pl" lang="pl">
 <head>
 <meta charset="utf-8" />
-<title>Kalkulator</title>
+<title>Kalkulator kredytowy</title>
 </head>
 <body>
 
 <form action="<?php print(_APP_URL);?>/app/calc.php" method="post">
-	<label for="id_x">Liczba 1: </label>
-	<input id="id_x" type="text" name="x" value="<?php print($x); ?>" /><br />
-	<label for="id_op">Operacja: </label>
-	<select name="op">
-		<option value="plus">+</option>
-		<option value="minus">-</option>
-		<option value="times">*</option>
-		<option value="div">/</option>
-	</select><br />
-	<label for="id_y">Liczba 2: </label>
-	<input id="id_y" type="text" name="y" value="<?php print($y); ?>" /><br />
-	<input type="submit" value="Oblicz" />
+	<label for="id_kwota">Podaj kwote: </label>
+	<input id="id_kwota" type="text" name="kwota" value="<?php 
+
+	if(!empty($kwota)){print($kwota);} 
+	?>" /><br />
+
+	<label for="id_miesiecy">Podaj ile miesiecy: </label>
+	<input id="id_miesiecy" type="text" name="miesiecy" value="<?php
+	 if(!empty($miesiecy)){
+		print($miesiecy); 
+	} ?>" /><br />
+	<label for="id_oprocentowanie">Podaj oprocentowanie: </label>
+	<input id="id_oprocentowanie" type="text" name="oprocentowanie" value="<?php if(!empty($oprocentowanie)){
+		print($oprocentowanie); 
+		
+	} ?>" /><br />
+		<input type="submit" value="Oblicz" />
 </form>	
 
 <?php
