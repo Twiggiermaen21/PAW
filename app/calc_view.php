@@ -35,7 +35,7 @@
 <center><?php
 if (isset($messages)) {
 	if (count ( $messages ) > 0) {
-		echo '<ol style=" margin:50px ; padding: 10px 10px 10px 30px; border-radius: 5px; background-color: #f88; width:200px;">';
+		echo '<ol style=" margin:10px ; padding: 10px 10px 10px 30px; border-radius: 5px; background-color: #f88; width:200px;">';
 		foreach ( $messages as $key => $msg ) {
 			echo '<li>'.$msg.'</li>';
 		}
@@ -43,18 +43,18 @@ if (isset($messages)) {
 	}
 }
 ?>
-</center>
 
-<center><?php if (isset($result)){ ?>
+
+<?php if (isset($result)){ ?>
 	<b>
 	<div style=" margin:10px; padding: 10px ; border-radius: 5px; background-color: #ff0; width:300px;  ">
 	
-<?php echo 'RATA: '.$result; ?></center>
+<?php echo 'RATA: '.$result; ?>
 </div>
 </b>
 
 
 <?php } ?>
-
+</center>
 </body>
 </html>
