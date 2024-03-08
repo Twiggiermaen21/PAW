@@ -26,16 +26,16 @@
 	<label for="id_oprocentowanie">Podaj oprocentowanie: </label>
 	<input id="id_oprocentowanie" type="text" name="oprocentowanie" minlength="1" maxlength="2" size="2" value="<?php if(!empty($oprocentowanie)){print($oprocentowanie);} ?>" />
 <br />
-		<input type="submit" value="Oblicz" size="20" />
-</form>	
+		<input type="submit" value="Oblicz Rate" style="width: 100px; height: 30px; background-color: tomato;"  />
+	</form>	
 
 
 
 
-<?php
+<center><?php
 if (isset($messages)) {
 	if (count ( $messages ) > 0) {
-		echo '<ol style=" margin: 20px; padding: 10px 10px 10px 30px; border-radius: 5px; background-color: #f88; width:300px;">';
+		echo '<ol style=" margin:50px ; padding: 10px 10px 10px 30px; border-radius: 5px; background-color: #f88; width:200px;">';
 		foreach ( $messages as $key => $msg ) {
 			echo '<li>'.$msg.'</li>';
 		}
@@ -43,12 +43,13 @@ if (isset($messages)) {
 	}
 }
 ?>
+</center>
 
-<?php if (isset($result)){ ?>
-	<b style="text-align: center;">
-	<div style="  padding: 10px ; border-radius: 5px; background-color: #ff0; width:300px;  ">
+<center><?php if (isset($result)){ ?>
+	<b>
+	<div style=" margin:10px; padding: 10px ; border-radius: 5px; background-color: #ff0; width:300px;  ">
 	
-<?php echo 'RATA: '.$result; ?>
+<?php echo 'RATA: '.$result; ?></center>
 </div>
 </b>
 
