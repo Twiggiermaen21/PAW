@@ -1,4 +1,5 @@
 <?php require_once dirname(__FILE__) .'/../config.php';?>
+
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pl" lang="pl">
 <head>
@@ -6,37 +7,35 @@
 <title>Kalkulator kredytowy</title>
 </head>
 <body>
+<div style= "text-align: center;">
+<b>
+<p style="color: goldenrod; font-size:xx-large; font-family: Century Gothic;"  > Kalkulator kredytowy</p>
+</b>
+<img src="..\img\sto.jpg"  alt="100zl" width="200" height="80" >
+</div>
+<form style="text-align: center; font-family: Century Gothic;" action="<?php print(_APP_URL);?>/app/calc.php" method="post">
+	<label for="id_kwota">Podaj kwote: </label> 
+	<input id="id_kwota" type="text" name="kwota" minlength="3" maxlength="6" size="6" value="<?php if(!empty($kwota)){print($kwota);} ?>" />
 
-<form action="<?php print(_APP_URL);?>/app/calc.php" method="post">
-	<label >Podaj kwote: </label>
-	<input id="id_kwota" type="text" name="kwota" value="<?php 
-
-	if(!empty($kwota)){print($kwota);} 
-	?>" 
-	
-	
-	/>
 	<label for="id_kwota">zl</label>
 	<br />
-
 	<label for="id_miesiecy">Podaj ile miesiecy: </label>
-	<input id="id_miesiecy" type="text" name="miesiecy" value="<?php
-	 if(!empty($miesiecy)){
-		print($miesiecy); 
-	} ?>" /><br />
+	<input id="id_miesiecy" type="text" name="miesiecy" minlength="1" maxlength="2" size="2" value="<?php if(!empty($miesiecy)){print($miesiecy);} ?>" />
+	<br />
+
 	<label for="id_oprocentowanie">Podaj oprocentowanie: </label>
-	<input id="id_oprocentowanie" type="text" name="oprocentowanie" value="<?php if(!empty($oprocentowanie)){
-		print($oprocentowanie); 
-		
-	} ?>" /><br />
-		<input type="submit" value="Oblicz" />
+	<input id="id_oprocentowanie" type="text" name="oprocentowanie" minlength="1" maxlength="2" size="2" value="<?php if(!empty($oprocentowanie)){print($oprocentowanie);} ?>" />
+<br />
+		<input type="submit" value="Oblicz" size="20" />
 </form>	
 
+
+
+
 <?php
-//wyświeltenie listy błędów, jeśli istnieją
 if (isset($messages)) {
 	if (count ( $messages ) > 0) {
-		echo '<ol style="margin: 20px; padding: 10px 10px 10px 30px; border-radius: 5px; background-color: #f88; width:300px;">';
+		echo '<ol style=" margin: 20px; padding: 10px 10px 10px 30px; border-radius: 5px; background-color: #f88; width:300px;">';
 		foreach ( $messages as $key => $msg ) {
 			echo '<li>'.$msg.'</li>';
 		}
@@ -46,9 +45,14 @@ if (isset($messages)) {
 ?>
 
 <?php if (isset($result)){ ?>
-<div style="margin: 20px; padding: 10px; border-radius: 5px; background-color: #ff0; width:300px;">
+	<b style="text-align: center;">
+	<div style="  padding: 10px ; border-radius: 5px; background-color: #ff0; width:300px;  ">
+	
 <?php echo 'RATA: '.$result; ?>
 </div>
+</b>
+
+
 <?php } ?>
 
 </body>

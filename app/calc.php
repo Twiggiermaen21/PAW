@@ -1,7 +1,5 @@
 <?php
-// KONTROLER strony kalkulatora
 require_once dirname(__FILE__).'/../config.php';
-
 
 $kwota = $_REQUEST ['kwota'];
 $miesiecy = $_REQUEST ['miesiecy'];
@@ -43,12 +41,7 @@ if (empty ( $messages )) {
 	$kwota = intval($kwota);
 	$oprocentowanie = intval($oprocentowanie);
 	
-	
-	//wykonanie operacji
-	$result=$kwota*(1+($oprocentowanie/($miesiecy*12))^12)*(1+($oprocentowanie/($miesiecy*12))-1)/((1+($oprocentowanie/($miesiecy*12))^12)-1);
+	$result=($kwota*($oprocentowanie/12)*(1+($oprocentowanie/12))^$miesiecy)/((1+($oprocentowanie/12))^$miesiecy-1);
 }
 
-// 4. Wywołanie widoku z przekazaniem zmiennych
-// - zainicjowane zmienne ($messages,$x,$y,$operation,$result)
-//   będą dostępne w dołączonym skrypcie
 include 'calc_view.php';
