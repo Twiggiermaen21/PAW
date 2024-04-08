@@ -38,7 +38,7 @@ function &getSmarty()
 	}
 	return $smarty;
 }
-require_once 'core/ClassLoader.class.php'; //załaduj i stwórz loader klas
+require_once 'core/ClassLoader.class.php'; 
 $cloader = new core\ClassLoader();
 function &getLoader()
 {
