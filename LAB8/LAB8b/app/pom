@@ -1,0 +1,146 @@
+<?php
+
+namespace app\controllers;
+
+use PDOException;
+use core\App;
+use core\Utils;
+use core\ParamUtils;
+use app\forms\CalcListSearchForm;
+
+class CalcList
+{
+	private $recordsCalc;
+	private $form;
+	private $page;
+	private $where;
+	public function __construct()
+	{
+		$this->form = new CalcListSearchForm();
+	}
+
+
+	public function validate()
+	{
+		$this->form->search = ParamUtils::getFromRequest('sf_searchForm');
+		return !App::getMessages()->isError();
+	}
+
+	public function page()
+	{
+		if (!empty($this->form->search)) {
+			$search = intval(ParamUtils::getFromRequest('sf_searchForm'));
+		}
+		$search_params = [];
+		if (isset($this->form->search) && strlen($this->form->search) > 0) {
+			$search_params['kwota'] = $search;
+		}
+
+
+		$num_params = sizeof($search_params);
+		if ($num_params > 1) {
+			$where = ["AND" => &$search_params];
+		} else {
+			$where = &$search_params;
+		}
+		$where['LIMIT'] = [$this->form->from, 5];
+		$where["ORDER"] = "data";
+
+		$this->form->count = (App::getDB()->count("wynikcalc", $where));
+		$this->form->page = isset($_GET['page']) ? intval($_GET['page']) - 1 : 0;
+
+		$this->form->limit = 5;
+		$this->form->from = $this->form->page * $this->form->limit;
+		$this->form->all = ceil($this->form->count / $this->form->limit);
+	}
+
+
+
+
+
+	public function action_CalcList()
+	{
+
+		$this->validate();
+		$this->page();
+		if (!empty($this->form->search)) {
+			$search = intval(ParamUtils::getFromRequest('sf_searchForm'));
+		}
+		$search_params = [];
+		if (isset($this->form->search) && strlen($this->form->search) > 0) {
+			$search_params['kwota'] = $search;
+		}
+
+
+		$num_params = sizeof($search_params);
+		if ($num_params > 1) {
+			$where = ["AND" => &$search_params];
+		} else {
+			$where = &$search_params;
+		}
+		$where['LIMIT'] = [$this->form->from, 5];
+		$where["ORDER"] = "data";
+
+
+		try {
+			$this->recordsCalc = App::getDB()->select("wynikcalc", [
+				"kwota",
+				"miesiecy",
+				"oprocentowanie",
+				"rata",
+				"koszt",
+				"calkowityKoszt",
+				"data"
+			], $where);
+		} catch (PDOException $e) {
+			Utils::addErrorMessage('Wystąpił błąd podczas pobierania rekordów');
+			if (App::getConf()->debug)
+				Utils::addErrorMessage($e->getMessage());
+		}
+
+		$this->action_CalcListShow("CalcList.tpl");
+	}
+
+
+	public function action_CalcListNumbers()
+	{
+		$this->validate();
+
+
+
+		$search_params = [];
+		if (isset($this->form->search) && strlen($this->form->search) > 0) {
+			$search_params['op'] = $this->form->search;
+		}
+
+
+		$num_params = sizeof($search_params);
+		if ($num_params > 1) {
+			$where = ["AND" => &$search_params];
+		} else {
+			$where = &$search_params;
+		}
+		$where["ORDER"] = "op";
+		try {
+			$this->recordsCalc = App::getDB()->select("wynikcalcnumbers", [
+				"x",
+				"y",
+				"op",
+				"wynik",
+				"data"
+			], $where);
+		} catch (PDOException $e) {
+			Utils::addErrorMessage('Wystąpił błąd podczas pobierania rekordów');
+			if (App::getConf()->debug)
+				Utils::addErrorMessage($e->getMessage());
+		}
+		$this->action_CalcListShow("CalcListNumbers.tpl");
+	}
+
+	public function action_CalcListShow($calc)
+	{
+		App::getSmarty()->assign('searchForm', $this->form);
+		App::getSmarty()->assign('resCalc', $this->recordsCalc);
+		App::getSmarty()->display($calc);
+	}
+}
