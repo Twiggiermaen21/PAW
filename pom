@@ -1,63 +1,48 @@
-<?php
-
-namespace app\controllers;
-$dane_user;
-use core\Utils;
-use core\App;
-class zamowienia
-{
-
-public function action_zamowienia(){
-
-        try {
-            $this->dane_user = App::getDB()->select("zamowienia", "*");
-            
-        } catch (\PDOException $e) {
-            Utils::addErrorMessage('Wystąpił błąd podczas pobierania rekordów');
-        }
-        $this->generateView();
-    }
-
-
-    public function generateView()
-    {
-      
-        App::getSmarty()->assign('dane', $this->dane_user);
-        
-        App::getSmarty()->display("zam.tpl");
-    }
-
-
-
-
-
-}
-
-
-
-
----------------
-Utils::addRoute('zamowienia', 'zamowienia', [ 'Pracownik']);
-------
-
-
 {extends file="main.tpl"}
 
 {block name=glowna}
 
 	<!-- Main -->
 	<div id="main">
-    <h1>  zamowienia <h1>
-		<div class="inner">
+  
+    <div id="main">
+    <div class="inner">
 			<section>
-            {foreach($dane as $d)}
-				{$d['idzamowienia']};
-{$d['idzamowienia']};
-{$d['Uzytkownik_idUzytkownik']};
-{$d['Data_zamowienia']};
-{$d['Adres']};
-{\foreach}
-			</section>
+            <h1>  zamowienia <h1>
+         
+            <div style="width:90%; margin: 2em auto;">
+            
+            <table id="User_tab" class="pure-table pure-table-bordered">
+            <tbody>
+                {foreach $dane as $d}
+                    {strip}
+                        <tr>
+                            <th>idzamowienia</th>
+                            <td>{$d['idzamowienia']}</td>
+                        </tr>
+                        <tr>
+                            <th>Uzytkownik_idUzytkownik</th>
+                            <td>{$d['Uzytkownik_idUzytkownik']}</td>
+                        </tr>
+                        <tr>
+                            <th>Data_zamowienia</th>
+                            <td>{$d['Data_zamowienia']}</td>
+                        </tr>
+                        <tr>
+                            <th>adres</th>
+                            <td>{$d['Adres']}
+                            </td>
+                        </tr>
+                        
+                    {/strip}
+                    
+                {/foreach}
+            </tbody>
+        </table>
+            
+            </section>
+            </div>
+
 		</div>
 	</div>
 
