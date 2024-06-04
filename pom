@@ -1,0 +1,64 @@
+<?php
+
+namespace app\controllers;
+$dane_user;
+use core\Utils;
+use core\App;
+class zamowienia
+{
+
+public function action_zamowienia(){
+
+        try {
+            $this->dane_user = App::getDB()->select("zamowienia", "*");
+            
+        } catch (\PDOException $e) {
+            Utils::addErrorMessage('Wystąpił błąd podczas pobierania rekordów');
+        }
+        $this->generateView();
+    }
+
+
+    public function generateView()
+    {
+      
+        App::getSmarty()->assign('dane', $this->dane_user);
+        
+        App::getSmarty()->display("zam.tpl");
+    }
+
+
+
+
+
+}
+
+
+
+
+---------------
+Utils::addRoute('zamowienia', 'zamowienia', [ 'Pracownik']);
+------
+
+
+{extends file="main.tpl"}
+
+{block name=glowna}
+
+	<!-- Main -->
+	<div id="main">
+    <h1>  zamowienia <h1>
+		<div class="inner">
+			<section>
+            {foreach($dane as $d)}
+				{$d['idzamowienia']};
+{$d['idzamowienia']};
+{$d['Uzytkownik_idUzytkownik']};
+{$d['Data_zamowienia']};
+{$d['Adres']};
+{\foreach}
+			</section>
+		</div>
+	</div>
+
+{/block }
